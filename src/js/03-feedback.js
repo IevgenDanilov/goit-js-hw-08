@@ -24,24 +24,18 @@ if (localStorage[storage]) {
 
 // Записуємо вхідні дані з input в сховище з затримкою
 
-refs.feedbackForm.addEventListener('input', onFormInput);
+refs.feedbackForm.addEventListener('input', throttle(onFormInput, 500));
 
 function onFormInput(event) {
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData(refs.feedbackForm);
 
     formData.forEach((value, name) => {
+
         userData[name] = value;
-
-        // throttle(() => {
         localStorage.setItem(storage, JSON.stringify(userData));
-        // console.log(userData);       
-        // }, 500);
+
     });
-
-
-
 }
-
 
 // При сабміті виводимо дані в консоль і очищуємо сховище та форму
 
